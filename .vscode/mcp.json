@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"simple-calculation": {
+			"url": "http://localhost:3000",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}

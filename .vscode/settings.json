@@ -1,0 +1,10 @@
+{
+    "chat.mcp.serverSampling": {
+        "mcp-playground/.vscode/mcp.json: simple-calculation": {
+            "allowedModels": [
+                "copilot/gpt-5-mini",
+                "copilot/auto"
+            ]
+        }
+    }
+}
