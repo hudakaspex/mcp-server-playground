@@ -33,7 +33,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('the user name'),
       email: z.string().describe('the user email and not required'),
-      city: z.string()
+      city: z.string().email()
     }
   },
   async (input) => {
@@ -60,4 +60,4 @@ server.registerTool(
       ]
     }
   }
-)
+);
