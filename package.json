@@ -1,7 +1,6 @@
 {
   "name": "@m.huda/mcp-playground",
   "version": "1.0.3",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx --watch src/index.ts",
@@ -13,11 +12,12 @@
     "publish-major": "npm version major && npm publish"
   },
   "type": "module",
+  "main": "build/index.js",
   "files": [
     "build"
   ],
   "bin": {
-    "mcp-playground": "./build/index.js"
+    "mcp-playground": "build/index.js"
   },
   "publishConfig": {
     "access": "public"
