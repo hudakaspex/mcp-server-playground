@@ -5,19 +5,18 @@ export const server = new McpServer({
   name: "mcp-playground",
   version: "1.0.0",
 });
-// https://jsonplaceholder.typicode.com/guide/
 // https://modelcontextprotocol.io/specification/2025-06-18/server/tools
 
-const publicApiUrl = 'https://jsonplaceholder.typicode.com';
+const publicApiUrl = 'https://api.restful-api.dev/objects';
 
 server.registerTool(
-  "GET_USER_LIST",
+  "GET_DEVICE_LIST",
   {
-    title: "Get User List",
-    description: "Fetches a list of users from a Point of sale app."
+    title: "Get Device List",
+    description: "Get all device"
   },
   async () => {
-    const response = await fetch(`${publicApiUrl}/users`);
+    const response = await fetch(publicApiUrl);
     const users = await response.json();
     return {
       content: [{ type: "text", text: JSON.stringify(users) }],
@@ -26,26 +25,25 @@ server.registerTool(
 );
 
 server.registerTool(
-  "CREATE_NEW_USER",
+  "ADD_NEW_DEVICE",
   {
-    title: 'Create new user',
-    description: 'Create new user to user table, the required data is name',
+    title: 'Add New Device',
+    description: "Added new device data to the list",
     inputSchema: {
-      name: z.string().describe('the user name'),
-      email: z.string().describe('the user email and not required'),
-      city: z.string().email()
+      name: z.string(),
+      data: z.object({
+        year: z.number().optional(),
+        price: z.number().optional(),
+        "CPU Model": z.string().optional(),
+        "Hard disk size": z.string().optional(),
+        generation: z.string().optional()
+      })
     }
   },
   async (input) => {
-    const createdUser = await fetch(`${publicApiUrl}/users`, {
+    const createdUser = await fetch(publicApiUrl, {
       method: "POST",
-      body: JSON.stringify(
-        {
-        name: input.name,
-        email: input.email,
-        city: input.city
-      }
-      ),
+      body: JSON.stringify(input),
       headers: {
         'Content-Type': 'application/json'
       }
