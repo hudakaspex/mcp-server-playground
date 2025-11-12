@@ -11,7 +11,6 @@ app.post("/", async (req: Request, res: Response) => {
         sessionIdGenerator: undefined,
         enableJsonResponse: true
     });
-
     res.on('close', () => {
         transport.close();
     });
