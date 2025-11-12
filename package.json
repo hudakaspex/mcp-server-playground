@@ -1,5 +1,5 @@
 {
-  "name": "mcp-playground",
+  "name": "@m.huda/mcp-playground",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -7,12 +7,21 @@
     "dev": "tsx --watch src/index.ts",
     "build": "tsc",
     "start": "node ./build/index.js",
-    "inspector": "npx @modelcontextprotocol/inspector node ./build/index.js"
+    "inspector": "npx @modelcontextprotocol/inspector node ./build/index.js",
+    "publish-patch": "npm version patch && npm publish",
+    "publish-minor": "npm version minor && npm publish",
+    "publish-major": "npm version major && npm publish"
   },
   "type": "module",
   "files": [
     "build"
   ],
+  "bin": {
+    "mcp-playground": "./build/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
