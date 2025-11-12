@@ -37,7 +37,6 @@ npm run start
 # or
 node build/index.js
 ```
-
 ## How to run the published / "cloud" server
 
 This package is published as `@m.huda/mcp-playground`. The published package exposes a `bin` which runs the compiled `build/index.js`. You can run the cloud/published server through `npx`:
