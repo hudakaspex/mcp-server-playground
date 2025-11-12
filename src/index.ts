@@ -1,24 +1,17 @@
-import express, { Request, Response } from "express";
-import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+#!/usr/bin/env node
 import { server } from "./mcp-server.js";
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
-const app = express();
-app.use(express.json());
-
-app.post("/", async (req: Request, res: Response) => {
-    // Create a new transport for each request to prevent request ID collisions
-    const transport = new StreamableHTTPServerTransport({
-        sessionIdGenerator: undefined,
-        enableJsonResponse: true
-    });
-    res.on('close', () => {
-        transport.close();
-    });
-
+async function main() {
+    const transport = new StdioServerTransport();
     await server.connect(transport);
-    await transport.handleRequest(req, res, req.body);
-});
-const port = parseInt(process.env.PORT || "3000");
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+}
+
+main()
+.then(res => {
+    console.error("MCP Server running on stdio");
+})
+.catch(err => {
+console.error("Failed to running MCP Server on stdio")
+   console.error(err);
+})

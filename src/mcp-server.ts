@@ -6,20 +6,56 @@ export const server = new McpServer({
   version: "1.0.0",
 });
 // https://modelcontextprotocol.io/specification/2025-06-18/server/tools
+
+const publicApiUrl = 'https://api.restful-api.dev/objects';
+
 server.registerTool(
-  "simple-calculation",
+  "GET_DEVICE_LIST",
   {
-    title: "Calculate Sum",
-    description: "Calculates the sum of two numbers.",
-    inputSchema: {
-      num1: z.number(),
-      num2: z.number(),
-    },
+    title: "Get Device List",
+    description: "Get all device"
   },
-  async ({ num1, num2 }) => {
-    const output = { result: num1 + num2 };
+  async () => {
+    const response = await fetch(publicApiUrl);
+    const users = await response.json();
     return {
-      content: [{ type: "text", text: JSON.stringify(output) }],
+      content: [{ type: "text", text: JSON.stringify(users) }],
     };
+  }
+);
+
+server.registerTool(
+  "ADD_NEW_DEVICE",
+  {
+    title: 'Add New Device',
+    description: "Added new device data to the list",
+    inputSchema: {
+      name: z.string(),
+      data: z.object({
+        year: z.number().optional(),
+        price: z.number().optional(),
+        "CPU Model": z.string().optional(),
+        "Hard disk size": z.string().optional(),
+        generation: z.string().optional()
+      })
+    }
+  },
+  async (input) => {
+    const createdUser = await fetch(publicApiUrl, {
+      method: "POST",
+      body: JSON.stringify(input),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const res = createdUser.json();
+    return {
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(res)
+        }
+      ]
+    }
   }
 );
