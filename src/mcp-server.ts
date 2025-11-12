@@ -13,7 +13,7 @@ server.registerTool(
   "GET_DEVICE_LIST",
   {
     title: "Get Device List",
-    description: "Get all device"
+    description: "Fetch a list of devices from the public API",
   },
   async () => {
     const response = await fetch(publicApiUrl);
@@ -27,8 +27,8 @@ server.registerTool(
 server.registerTool(
   "ADD_NEW_DEVICE",
   {
-    title: 'Add New Device',
-    description: "Added new device data to the list",
+    title: "Add New Device",
+    description: "Add a new device to the device list",
     inputSchema: {
       name: z.string(),
       data: z.object({
