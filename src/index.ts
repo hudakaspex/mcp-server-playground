@@ -1,9 +1,9 @@
 import { server } from "./mcp-server.js";
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
-function main() {
+async function main() {
     const transport = new StdioServerTransport();
-    return server.connect(transport);
+    await server.connect(transport);
 }
 
 main()
