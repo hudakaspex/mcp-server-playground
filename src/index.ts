@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { server } from "./mcp-server.js";
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
